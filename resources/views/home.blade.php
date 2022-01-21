@@ -3,21 +3,26 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3 p-5">
+            <div class="col-3 p-5">[]
                 <img
-                    src="https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/ikqra03zdnggljdu5vv0"
-                    class="rounded-circle"/>
+                    src="{{$user->profile->profileImage()}}"
+                    class="rounded-circle" style="width: 150px;height: 150px;"/>
             </div>
             <div class="col-9 p-5">
                 <div class="d-flex justify-content-between align-items-baseline">
-                    <h1>EMAPTA Learning System</h1>
-                    <a href="#">Add New Post</a>
+                    <div class="d-flex">
+                         <h1>EMAPTA Learning System</h1>
+                         <follow-component user-id="{{$user->id}}" follows="{{ $follows }}" ></follow-component>
+                    </div>
+                    <a href="/p/create">Add New Post</a>
                 </div>
-
+                @can('update',$user->profile)
+                <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
+                @endcan
                 <div class="d-flex">
-                    <div style="padding-right: 15px;"><strong>153</strong> posts</div>
-                    <div style="padding-right: 15px;"><strong>21K</strong> followers</div>
-                    <div style="padding-right: 15px;"><strong>212</strong> followings</div>
+                    <div style="padding-right: 15px;"><strong>{{$user->posts()->count()}}</strong> posts</div>
+                    <div style="padding-right: 15px;"><strong>{{$user->profile->followers->count()}}</strong> followers</div>
+                    <div style="padding-right: 15px;"><strong>{{$user->following->count()}}</strong> followings</div>
                 </div>
                 <div class="pt-5">{{$user->profile->title}}</div>
                 <div>We're a global community of millions of people learning to code together.
@@ -30,10 +35,12 @@
         </div>
         <div class="row pt-4">
             @foreach($user->posts as $post)
-                <div class="col-4">
+                <div class="col-4 pb-4">
+                    <a href="/p/{{$post->id}}">
                     <img
                         src="/storage/{{$post->image}}"
                         class="w-100">
+                    </a>
                 </div>
             @endforeach
 
