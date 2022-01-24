@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-3 p-5">[]
+            <div class="col-3 p-5">
                 <img
                     src="{{$user->profile->profileImage()}}"
                     class="rounded-circle" style="width: 150px;height: 150px;"/>
@@ -20,9 +20,9 @@
                 <a href="/profile/{{$user->id}}/edit">Edit Profile</a>
                 @endcan
                 <div class="d-flex">
-                    <div style="padding-right: 15px;"><strong>{{$user->posts()->count()}}</strong> posts</div>
-                    <div style="padding-right: 15px;"><strong>{{$user->profile->followers->count()}}</strong> followers</div>
-                    <div style="padding-right: 15px;"><strong>{{$user->following->count()}}</strong> followings</div>
+                    <div style="padding-right: 15px;"><strong>{{$postCount}}</strong> posts</div>
+                    <div style="padding-right: 15px;"><strong>{{$followersCount}}</strong> followers</div>
+                    <div style="padding-right: 15px;"><strong>{{$followingCount}}</strong> followings</div>
                 </div>
                 <div class="pt-5">{{$user->profile->title}}</div>
                 <div>We're a global community of millions of people learning to code together.
